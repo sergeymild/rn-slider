@@ -1,111 +1,95 @@
 package com.jesster2k10reactnativerangeslider
 
 import android.content.Context
+import androidx.core.app.NotificationCompat.StreamType
 import com.facebook.react.common.MapBuilder
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class RNRangeSliderManager: SimpleViewManager<RNRangeSliderView>() {
+class RNSliderManager: SimpleViewManager<RNSliderView>() {
   override fun getName(): String {
-    return "RNRangeSlider"
+    return "RNSlider"
   }
 
-  override fun createViewInstance(reactContext: ThemedReactContext): RNRangeSliderView {
-    return RNRangeSliderView(reactContext as Context)
+  override fun createViewInstance(reactContext: ThemedReactContext): RNSliderView {
+    return RNSliderView(reactContext as Context)
   }
 
   @ReactProp(name = "tintColorBetweenHandles")
-  fun setTintColorBetweenHandles(view: RNRangeSliderView, color: Double) {
+  fun setTintColorBetweenHandles(view: RNSliderView, color: Double) {
     view.run { setTintColorBetweenHandles(color) }
   }
 
   @ReactProp(name = "tintColor")
-  fun setTintColor(view: RNRangeSliderView, color: Double) {
+  fun setTintColor(view: RNSliderView, color: Double) {
     view.run { setTintColor(color) }
   }
 
   @ReactProp(name = "handleColor")
-  fun setHandleColor(view: RNRangeSliderView, color: Double) {
+  fun setHandleColor(view: RNSliderView, color: Double) {
     view.run { setHandleColor(color) }
   }
 
   @ReactProp(name = "handlePressedColor")
-  fun setHandlePressedColor(view: RNRangeSliderView, color: Double) {
+  fun setHandlePressedColor(view: RNSliderView, color: Double) {
     view.run { setHandlePressedColor(color) }
   }
 
   @ReactProp(name = "step")
-  fun setStep(view: RNRangeSliderView, step: Int?) {
+  fun setStep(view: RNSliderView, step: Int?) {
     if (step == null) return
     view.run { setStep(step.toFloat()) }
   }
 
   @ReactProp(name = "leftHandlePressedColor")
-  fun setLeftHandlePressedColor(view: RNRangeSliderView, color: Double) {
+  fun setLeftHandlePressedColor(view: RNSliderView, color: Double) {
     view.run { setLeftHandlePressedColor(color) }
   }
 
-  @ReactProp(name = "rightHandlePressedColor")
-  fun setRightHandlePressedColor(view: RNRangeSliderView, color: Double) {
-    view.run { setRightHandlePressedColor(color) }
-  }
-
   @ReactProp(name = "leftHandleColor")
-  fun setLeftHandleColor(view: RNRangeSliderView, color: Double) {
+  fun setLeftHandleColor(view: RNSliderView, color: Double) {
     view.run { setLeftHandleColor(color) }
   }
 
-  @ReactProp(name = "rightHandleColor")
-  fun setRightHandleColor(view: RNRangeSliderView, color: Double) {
-    view.run { setRightHandleColor(color) }
-  }
-
   @ReactProp(name = "handleDiameter")
-  fun setCornerRadius(view: RNRangeSliderView, radius: Int?) {
+  fun setCornerRadius(view: RNSliderView, radius: Int?) {
     if (radius == null) return
     view.run { setCornerRadius(radius.toFloat()) }
   }
 
   @ReactProp(name = "min")
-  fun setMin(view: RNRangeSliderView, min: Int?) {
+  fun setMin(view: RNSliderView, min: Int?) {
     if (min == null) return
     view.run { setMinValue(min.toFloat()) }
   }
 
   @ReactProp(name = "max")
-  fun setMax(view: RNRangeSliderView, max: Int?) {
+  fun setMax(view: RNSliderView, max: Int?) {
     if (max == null) return
     view.run { setMaxValue(max.toFloat()) }
   }
 
   @ReactProp(name = "minStart")
-  fun setMinStart(view: RNRangeSliderView, min: Int?) {
+  fun setMinStart(view: RNSliderView, min: Int?) {
     if (min == null) return
     view.run { setMinStartValue(min.toFloat()) }
   }
 
   @ReactProp(name = "maxStart")
-  fun maxStart(view: RNRangeSliderView, max: Int?) {
+  fun maxStart(view: RNSliderView, max: Int?) {
     if (max == null) return
     view.run { setMaxStartValue(max.toFloat()) }
   }
 
-  @ReactProp(name = "fixGap")
-  fun setFixGap(view: RNRangeSliderView, gap: Int?) {
-    if (gap == null) return
-    view.run { setFixGap(gap.toFloat()) }
-
-  }
-
   @ReactProp(name = "suffix")
-  fun setSuffix(view: RNRangeSliderView, suffix: String?) {
+  fun setSuffix(view: RNSliderView, suffix: String?) {
     if (suffix == null) return
     view.suffix = suffix
   }
 
   @ReactProp(name = "prefix")
-  fun setPrefix(view: RNRangeSliderView, prefix: String?) {
+  fun setPrefix(view: RNSliderView, prefix: String?) {
     if (prefix == null) return
     view.prefix = prefix
   }

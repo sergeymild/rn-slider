@@ -435,7 +435,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
         [self.delegate rangeSlider:self didChangeSelectedMinimumValue:self.selectedMinimum andMaximumValue:self.selectedMaximum];
     }
 
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    //[self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
@@ -467,6 +467,8 @@ static const CGFloat kLabelsFontSize = 12.0f;
             self.selectedMaximum = self.selectedMinimum;
         }
     }
+
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 
     //no need to refresh the view because it is done as a sideeffect of setting the property
 

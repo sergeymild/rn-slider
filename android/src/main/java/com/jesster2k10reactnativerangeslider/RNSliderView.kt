@@ -1,21 +1,17 @@
 package com.jesster2k10reactnativerangeslider
 
 import android.content.Context
-import android.graphics.Color
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.isVisible
-import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener
-import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener
+import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
 import com.facebook.react.bridge.ColorPropConverter
 import com.facebook.react.bridge.ReactContext
 import com.facebook.react.uimanager.UIManagerModule
-import java.lang.StringBuilder
 
-class RNRangeSliderView(context: Context): LinearLayout(context), OnRangeSeekbarChangeListener {
-  private var rangeSeekBar: CrystalRangeSeekbar
+class RNSliderView(context: Context): LinearLayout(context), OnSeekbarChangeListener {
+  private var rangeSeekBar: CrystalSeekbar
   private var minTextView: TextView?
-  private var maxTextView: TextView?
 
   private var minValue: Float = 0f
   private var maxValue: Float = 100f
@@ -33,15 +29,14 @@ class RNRangeSliderView(context: Context): LinearLayout(context), OnRangeSeekbar
     }
 
   init {
-    inflate(context, R.layout.range_slider, this)
-    rangeSeekBar = findViewById(R.id.range_seek_bar)
-    rangeSeekBar.setOnRangeSeekbarChangeListener(this)
+    inflate(context, R.layout.slider, this)
+    rangeSeekBar = findViewById(R.id.seek_bar)
+    rangeSeekBar.setOnSeekbarChangeListener(this)
     rangeSeekBar.setMinStartValue(minValue)
-    rangeSeekBar.setMaxStartValue(maxValue)
+    rangeSeekBar.setMaxValue(maxValue)
 
     minTextView = findViewById(R.id.range_seek_bar_min)
-    maxTextView = findViewById(R.id.range_seek_bar_max)
-    updateText(minValue, maxValue)
+    updateText(minValue)
   }
 
   fun setTintColorBetweenHandles(color: Double) {
@@ -53,29 +48,19 @@ class RNRangeSliderView(context: Context): LinearLayout(context), OnRangeSeekbar
   }
 
   fun setHandleColor(color: Double) {
-    rangeSeekBar.setLeftThumbColor(ColorPropConverter.getColor(color, context))
-    rangeSeekBar.setRightThumbColor(ColorPropConverter.getColor(color, context))
+    rangeSeekBar.setThumbColor(ColorPropConverter.getColor(color, context))
   }
 
   fun setHandlePressedColor(color: Double) {
-    rangeSeekBar.setLeftThumbHighlightColor(ColorPropConverter.getColor(color, context))
-    rangeSeekBar.setRightThumbHighlightColor(ColorPropConverter.getColor(color, context))
+    rangeSeekBar.setThumbHighlightColor(ColorPropConverter.getColor(color, context))
   }
 
   fun setLeftHandleColor(color: Double) {
-    rangeSeekBar.setLeftThumbColor(ColorPropConverter.getColor(color, context))
-  }
-
-  fun setRightHandleColor(color: Double) {
-    rangeSeekBar.setRightThumbColor(ColorPropConverter.getColor(color, context))
+    rangeSeekBar.setThumbColor(ColorPropConverter.getColor(color, context))
   }
 
   fun setLeftHandlePressedColor(color: Double) {
-    rangeSeekBar.setLeftThumbHighlightColor(ColorPropConverter.getColor(color, context))
-  }
-
-  fun setRightHandlePressedColor(color: Double) {
-    rangeSeekBar.setRightThumbHighlightColor(ColorPropConverter.getColor(color, context))
+    rangeSeekBar.setThumbHighlightColor(ColorPropConverter.getColor(color, context))
   }
 
   fun setCornerRadius(diameter: Float) {
@@ -85,13 +70,13 @@ class RNRangeSliderView(context: Context): LinearLayout(context), OnRangeSeekbar
   fun setMinValue(min: Float) {
     minValue = min
     rangeSeekBar.setMinValue(min)
-    updateText(minValue, maxValue)
+    updateText(minValue)
   }
 
   fun setMaxValue(max: Float) {
     maxValue = max
     rangeSeekBar.setMaxValue(max)
-    updateText(minValue, maxValue)
+    updateText(minValue)
   }
 
   fun setMinStartValue(minStartValue: Float) {
@@ -102,23 +87,14 @@ class RNRangeSliderView(context: Context): LinearLayout(context), OnRangeSeekbar
     rangeSeekBar.setMinStartValue(maxStartValue)
   }
 
-  fun setFixGap(gap: Float) {
-    rangeSeekBar.setFixGap(gap)
-  }
-
   fun setStep(steps: Float) {
     rangeSeekBar.setSteps(steps)
   }
 
-  private fun updateText(min: Number? = null, max: Number? = null) {
+  private fun updateText(min: Number? = null) {
     var minText = minTextView?.text
-    var maxText = minTextView?.text
     if (min !== null) {
       minText = min.toString()
-    }
-
-    if (max !== null) {
-      maxText = max.toString()
     }
 
     minTextView?.text = StringBuilder()
@@ -126,22 +102,15 @@ class RNRangeSliderView(context: Context): LinearLayout(context), OnRangeSeekbar
       .append(minText)
       .append(suffix)
     minTextView?.visibility = if (prefix == null || prefix?.isEmpty() == true) GONE else VISIBLE
-
-    maxTextView?.text = StringBuilder()
-      .append(prefix)
-      .append(maxText)
-      .append(suffix)
-
-    maxTextView?.visibility = if (suffix == null || suffix?.isEmpty() == true) GONE else VISIBLE
   }
 
-  override fun valueChanged(min: Number?, max: Number?) {
-    if (max == null || min == null) return
-    updateText(min, max)
+  override fun valueChanged(value: Number?) {
+    if (value == null) return
+    updateText(value)
 
     val event = RangeSliderChangeEvent(rangeSeekBar.id)
-    event.max = max.toDouble()
-    event.min = min.toDouble()
+    event.max = value.toDouble()
+    event.min = value.toDouble()
 
     val reactContext = context as ReactContext
     reactContext.getNativeModule(UIManagerModule::class.java)?.eventDispatcher?.dispatchEvent(

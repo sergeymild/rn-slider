@@ -1,8 +1,9 @@
 import React from 'react';
-import { Platform, requireNativeComponent } from 'react-native';
+import { Platform, processColor, requireNativeComponent } from "react-native";
 import { RangeSliderProps, RangeSliderChangeEvent } from './types';
 
 const Slider = requireNativeComponent('RNRangeSlider');
+const RNSlider = requireNativeComponent('RNSlider');
 
 const RangeSlider: React.FC<RangeSliderProps> = ({
   min,
@@ -53,23 +54,24 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
   };
 
   if (Platform.OS === 'android') {
+    const Component = type === 'slider' ? RNSlider : Slider
     return (
-      <Slider
+      <Component
         min={Number(min)}
         max={Number(max)}
         step={Number(step)}
-        tintColor={tintColor}
-        tintColorBetweenHandles={tintColorBetweenHandles}
-        handleColor={handleColor}
+        tintColor={processColor(tintColor) ?? undefined}
+        tintColorBetweenHandles={processColor(tintColorBetweenHandles) ?? undefined}
+        handleColor={processColor(handleColor) ?? undefined}
         onChange={handleChange}
-        leftHandleColor={leftHandleColor}
-        rightHandleColor={rightHandleColor}
+        leftHandleColor={processColor(leftHandleColor) ?? undefined}
+        rightHandleColor={processColor(rightHandleColor) ?? undefined}
         minStartValue={minStartValue}
         maxStartValue={maxStartValue}
         fixGap={fixGap}
-        leftHandlePressedColor={leftHandlePressedColor}
-        rightHandlePressedColor={rightHandlePressedColor}
-        handlePressedColor={handlePressedColor || handleColor}
+        leftHandlePressedColor={processColor(leftHandlePressedColor) ?? undefined}
+        rightHandlePressedColor={processColor(rightHandlePressedColor) ?? undefined}
+        handlePressedColor={processColor(handlePressedColor || handleColor) ?? undefined}
         cornerRadius={cornerRadius}
         prefix={prefix}
         suffix={suffix}
@@ -85,21 +87,21 @@ const RangeSlider: React.FC<RangeSliderProps> = ({
         step={Number(step)}
         selectedMaximum={selectedMaximum}
         selectedMinimum={selectedMinimum}
-        tintColor={tintColor}
-        tintColorBetweenHandles={tintColorBetweenHandles}
-        handleBorderColor={handleBorderColor}
+        tintColor={tintColor ? processColor(tintColor) : undefined}
+        tintColorBetweenHandles={tintColorBetweenHandles ? processColor(tintColorBetweenHandles) : undefined}
+        handleBorderColor={handleBorderColor ? processColor(handleBorderColor) : undefined}
         handleBorderWidth={handleBorderWidth}
-        handleColor={handleColor}
+        handleColor={handleColor ? processColor(handleColor) : undefined}
         handleDiameter={handleDiameter}
-        minLabelColour={minLabelColor}
+        minLabelColour={minLabelColor ? processColor(minLabelColor) : undefined}
         minLabelFont={minLabelFont}
         minLabelFontSize={minLabelFontSize}
         maxLabelFont={maxLabelFont}
         maxLabelFontSize={maxLabelFontSize}
-        maxLabelColour={maxLabelColor}
+        maxLabelColour={maxLabelColor ? processColor(maxLabelColor) : undefined}
         lineHeight={lineHeight}
         lineBorderWidth={lineBorderWidth}
-        lineBorderColor={lineBorderColor}
+        lineBorderColor={lineBorderColor ? processColor(lineBorderColor) : undefined}
         prefix={prefix}
         suffix={suffix}
         hideLabels={hideLabels}
