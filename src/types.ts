@@ -18,10 +18,10 @@ export interface CommonRangeSliderProps {
   style?: object;
   prefix?: string;
   suffix?: string;
+  type?: 'slider' | 'range';
 }
 
 export interface IOSOnlyRangeSliderProps {
-  type?: 'slider' | 'range';
   selectedMinimum: number;
   selectedMaximum: number;
   handleBorderColor?: string;
