@@ -20,17 +20,17 @@
 @property (nonatomic, assign) float minDistance;
 @property (nonatomic, assign) float maxDistance;
 
-@property (nonatomic, assign) NSString* tintColor;
-@property (nonatomic, assign) NSString* tintColorBetweenHandles;
-@property (nonatomic, assign) NSString* minLabelColour;
-@property (nonatomic, assign) NSString* maxLabelColour;
-@property (nonatomic, assign) NSString* handleColor;
-@property (nonatomic, assign) NSString* handleBorderColor;
+@property (nonatomic, assign) NSNumber* tintColor;
+@property (nonatomic, assign) NSNumber* tintColorBetweenHandles;
+@property (nonatomic, assign) NSNumber* minLabelColour;
+@property (nonatomic, assign) NSNumber* maxLabelColour;
+@property (nonatomic, assign) NSNumber* handleColor;
+@property (nonatomic, assign) NSNumber* handleBorderColor;
 @property (nonatomic, assign) float handleDiameter;
 @property (nonatomic, assign) float handleBorderWidth;
 @property (nonatomic, assign) float lineHeight;
 @property (nonatomic, assign) float lineBorderWidth;
-@property (nonatomic, assign) NSString* lineBorderColor;
+@property (nonatomic, assign) NSNumber* lineBorderColor;
 @property (nonatomic, assign) NSString* suffix;
 @property (nonatomic, assign) NSString* prefix;
 @property (nonatomic, assign) BOOL disableRange;

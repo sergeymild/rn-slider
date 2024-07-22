@@ -37,7 +37,7 @@
     float _selectedMaximum;
     NSString *myPrefix;
     NSString *mySuffix;
-    
+
     float _minLabelFontSize;
     float _maxLabelFontSize;
 
@@ -52,13 +52,13 @@
     // NSLog(@"Min Value: %.0f Max Value: %.0f", sender.selectedMinimum, sender.selectedMaximum);
     _selectedMinimum = sender.selectedMinimum;
     _selectedMaximum = sender.selectedMaximum;
-    
+
     NSDictionary *eventBody = @{
         @"min": [NSNumber numberWithInt:_selectedMinimum],
         @"max": [NSNumber numberWithInt:_selectedMaximum],
         @"target": self.reactTag
     };
-    
+
     RCTComponentEvent *event = [[RCTComponentEvent alloc] initWithName:@"onChange" viewTag:self.reactTag body: eventBody];
 
     [_eventDispatcher sendEvent:event];
@@ -92,36 +92,36 @@
     }
 }
 
-- (void) setTintColor:(NSString *)tintColor
+- (void) setTintColor:(NSNumber *)tintColor
 {
-    UIColor *color = [UIColor colorwithHexString:tintColor alpha:1];
-    [_rangeSlider setTintColor:color];
+
+    [_rangeSlider setTintColor:[RCTConvert UIColor:tintColor]];
 }
-- (void) setTintColorBetweenHandles:(NSString *)tintColorBetweenHandles
+- (void) setTintColorBetweenHandles:(NSNumber *)tintColorBetweenHandles
 {
-    UIColor *color = [UIColor colorwithHexString:tintColorBetweenHandles alpha:1];
+    UIColor *color = [RCTConvert UIColor:tintColorBetweenHandles];
     [_rangeSlider setTintColorBetweenHandles:color];
 }
-- (void) setHandleBorderColor:(NSString *)handleBorderColor{
-    UIColor *color = [UIColor colorwithHexString:handleBorderColor alpha:1];
+- (void) setHandleBorderColor:(NSNumber *)handleBorderColor{
+    UIColor *color = [RCTConvert UIColor:handleBorderColor];
     [_rangeSlider setHandleBorderColor:color];
 }
 - (void) setHandleBorderWidth:(float)handleBorderWidth{
     [_rangeSlider setHandleBorderWidth: handleBorderWidth];
 }
-- (void) setMinLabelColour:(NSString *)minLabelColour
+- (void) setMinLabelColour:(NSNumber *)minLabelColour
 {
-    UIColor *color = [UIColor colorwithHexString:minLabelColour alpha:1];
+    UIColor *color = [RCTConvert UIColor:minLabelColour];
     [_rangeSlider setMinLabelColour:color];
 }
-- (void) setMaxLabelColour:(NSString *)maxLabelColour
+- (void) setMaxLabelColour:(NSNumber *)maxLabelColour
 {
-    UIColor *color = [UIColor colorwithHexString:maxLabelColour alpha:1];
+    UIColor *color = [RCTConvert UIColor:maxLabelColour];
     [_rangeSlider setMaxLabelColour:color];
 }
-- (void) setHandleColor:(NSString *)handleColor
+- (void) setHandleColor:(NSNumber *)handleColor
 {
-    UIColor *color = [UIColor colorwithHexString:handleColor alpha:1];
+    UIColor *color = [RCTConvert UIColor:handleColor];
     [_rangeSlider setHandleColor:color];
 }
 - (void) setLineHeight:(float)lineHeight

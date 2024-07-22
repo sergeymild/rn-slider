@@ -1,59 +1,32 @@
-import { NativeSyntheticEvent } from 'react-native';
+import { NativeSyntheticEvent, ViewStyle } from 'react-native';
 
-export type RangeSliderChangeEvent = NativeSyntheticEvent<{
-  min: number;
-  max: number;
-  target?: any;
-  fromUser?: boolean;
-}>;
+export type OnRangeValueChange = { from: number; to: number };
+export type OnValueChange = { to: number };
 
-export interface CommonRangeSliderProps {
-  min: number;
-  max: number;
-  onChange?: (min: number, max: number) => void;
-  tintColor?: string;
-  tintColorBetweenHandles?: string;
-  step?: number;
-  handleColor?: string;
-  style?: object;
-  prefix?: string;
-  suffix?: string;
-  type?: 'slider' | 'range';
-}
+export type CommomSliderProps = {
+  maximumValue: number;
+  minimumValue: number;
+  trackHeight: number;
+  thumbStrokeWidth: number;
+  thumbStrokeColor: string;
+  thumbFillColor: string;
+  thumbElevation: number;
+  thumbRadius: number;
+  tickColor?: string;
+  trackColorActive: string;
+  trackColorInactive: string;
+  from: number;
+};
 
-export interface IOSOnlyRangeSliderProps {
-  selectedMinimum: number;
-  selectedMaximum: number;
-  handleBorderColor?: string;
-  handleBorderWidth?: number;
-  minLabelColor?: string;
-  maxLabelColor?: string;
-  handleDiameter?: number;
-  lineHeight?: number;
-  hideLabels?: boolean;
-  minLabelFont?: string;
-  maxLabelFont?: string;
-  minLabelFontSize?: number;
-  maxLabelFontSize?: number;
-  labelPadding?: number;
-  minDistance?: number;
-  maxDistance?: number;
-  lineBorderWidth?: number;
-  lineBorderColor?: string;
-}
+export type RangeSliderProps = {
+  params: { to: number } & CommomSliderProps;
+  style: ViewStyle;
+  onValueChange?: (event: NativeSyntheticEvent<OnRangeValueChange>) => void;
+};
 
-export interface AndroidOnlyRangeSliderProps {
-  leftHandleColor?: string;
-  rightHandleColor?: string;
-  leftHandlePressedColor?: string;
-  rightHandlePressedColor?: string;
-  handlePressedColor?: string;
-  minStartValue?: number;
-  maxStartValue?: number;
-  fixGap?: number;
-  cornerRadius?: number;
-}
-
-export type RangeSliderProps = CommonRangeSliderProps &
-  Partial<IOSOnlyRangeSliderProps> &
-  Partial<AndroidOnlyRangeSliderProps>;
+export type SliderProps = {
+  params: CommomSliderProps;
+  style: ViewStyle;
+  onValueChange?: (event: NativeSyntheticEvent<OnValueChange>) => void;
+  onPremiumValue?: (event: NativeSyntheticEvent<any>) => void;
+};
