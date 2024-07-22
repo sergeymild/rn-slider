@@ -15,11 +15,11 @@ export type CommomSliderProps = {
   tickColor?: string;
   trackColorActive: string;
   trackColorInactive: string;
-  from: number;
+  to: number;
 };
 
 export type RangeSliderProps = {
-  params: { to: number } & CommomSliderProps;
+  params: { from: number } & CommomSliderProps;
   style: ViewStyle;
   onValueChange?: (event: NativeSyntheticEvent<OnRangeValueChange>) => void;
 };

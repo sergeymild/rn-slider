@@ -12,6 +12,11 @@ import com.facebook.react.uimanager.annotations.ReactProp
 class SliderViewManager : SimpleViewManager<SliderHostView>() {
   override fun getName() = "SliderView"
 
+  private fun ReadableMap.double(key: String): Double? {
+    if (hasKey(key)) return getDouble(key)
+    return null
+  }
+
   override fun createViewInstance(reactContext: ThemedReactContext): SliderHostView {
     return SliderHostView(reactContext)
   }
@@ -49,7 +54,7 @@ class SliderViewManager : SimpleViewManager<SliderHostView>() {
     view.slider.setThumbElevationActive(elevation)
 
     view.slider.setThumbElevationInactive(elevation)
-    view.slider.setPremiumValuee(params.getDouble("premiumValue").toFloat())
+    view.slider.setPremiumValuee(params.double("premiumValue")?.toFloat() ?: -1f)
 
     val radius =  PixelUtil.toPixelFromDIP(params.getDouble("thumbRadius")).toInt()
     view.slider.setThumbRadiusActive(radius)

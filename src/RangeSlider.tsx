@@ -30,7 +30,7 @@ export const RangeSlider: React.FC<Props> = props => {
   let minimum: number | undefined;
   let maximum: number | undefined;
   if (props.type === 'slider') {
-    maximum = props.props.params.from;
+    maximum = props.props.params.to;
   }
   if (props.type === 'range') {
     minimum = props.props.params.from;
