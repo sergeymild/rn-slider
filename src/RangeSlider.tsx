@@ -13,7 +13,6 @@ export const RangeSlider: React.FC<Props> = props => {
     height: 70,
   };
   const handleChange = ({ nativeEvent }: any) => {
-    console.log('🍓[RangeSlider.handleChange]', nativeEvent);
     if (props.type === 'slider') {
       //@ts-ignore
       props.props.onValueChange({ nativeEvent: { to: nativeEvent.max } });
@@ -28,17 +27,23 @@ export const RangeSlider: React.FC<Props> = props => {
 
   const commonProps = props.props.params;
 
-  console.log('🍓[RangeSlider.RangeSlider]', commonProps);
+  let minimum: number | undefined;
+  let maximum: number | undefined;
+  if (props.type === 'slider') {
+    maximum = props.props.params.from;
+  }
+  if (props.type === 'range') {
+    minimum = props.props.params.from;
+    maximum = props.props.params.to;
+  }
 
   return (
     <Slider
       disableRange={props.type === 'slider'}
       minValue={commonProps.minimumValue}
       maxValue={commonProps.maximumValue}
-      selectedMaximum={commonProps.from}
-      selectedMinimum={
-        props.type === 'range' ? props.props.params.from : undefined
-      }
+      selectedMaximum={maximum}
+      selectedMinimum={minimum}
       //step={Number(step)}
       tintColor={processColor(commonProps.trackColorActive)}
       tintColorBetweenHandles={processColor(commonProps.trackColorInactive)}
