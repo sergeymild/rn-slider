@@ -35,6 +35,7 @@ const _SliderView =
 
 export const RangeSliderView: React.FC<RangeSliderProps> = memo((props) => {
   if (Platform.OS === 'ios') {
+    // TODO premiumColor
     return <RangeSlider props={props} type={'range'} />
   }
   return (
@@ -71,6 +72,7 @@ export const SliderView: React.FC<SliderProps> = memo((props) => {
         thumbFillColor: processColor(props.params.thumbFillColor) as any,
         tickColor: processColor(props.params.tickColor) as any,
         trackColorActive: processColor(props.params.trackColorActive) as any,
+        premiumColor: processColor(props.params.premiumColor ?? "#AFB1B2") as any,
         trackColorInactive: processColor(
           props.params.trackColorInactive
         ) as any,

@@ -64,6 +64,7 @@ class AppFlexibleSlider @JvmOverloads constructor(
   private var activeTrackColor: ColorStateList? = null
   private var inactiveTickColor: ColorStateList? = null
   private var activeTickColor: ColorStateList? = null
+  private var premiumColor: ColorStateList? = null
 
   private var inactiveThumbRadius: Int = 0
   private var activeThumbRadius: Int = 0
@@ -178,7 +179,7 @@ class AppFlexibleSlider @JvmOverloads constructor(
   fun setTrackColorActive(colors: ColorStateList) {
     this.activeTrackColor = colors
     activeTrackPaint.color = colors.colorForState
-    premiumTrackPaint.color = Color.parseColor("#FFDE17")
+    premiumTrackPaint.color = Color.parseColor("#AFB1B2")
 
     postInvalidate()
   }
@@ -253,6 +254,12 @@ class AppFlexibleSlider @JvmOverloads constructor(
     postInvalidate()
   }
 
+  fun setPremiumColor(colors: ColorStateList) {
+    premiumColor = colors
+    premiumTrackPaint.color = colors.colorForState
+    postInvalidate()
+  }
+
   fun setThumbElevationInactive(@Px elevation: Float) {
     inactiveThumbDrawable.elevation = elevation
 
@@ -278,6 +285,7 @@ class AppFlexibleSlider @JvmOverloads constructor(
     activeTrackColor?.colorForState?.let { activeTrackPaint.color = it }
     inactiveTickColor?.colorForState?.let { inactiveTickPaint.color = it }
     activeTickColor?.colorForState?.let { activeTickPaint.color = it }
+    premiumColor?.colorForState?.let { premiumTrackPaint.color = it }
     activeThumbDrawable.stateful { state = drawableState }
     inactiveThumbDrawable.stateful { state = drawableState }
   }
@@ -412,7 +420,7 @@ class AppFlexibleSlider @JvmOverloads constructor(
   private fun drawPremiumTrack(canvas: Canvas, width: Int, top: Float) {
     if (premiumValue <= 0f) return
     val right = trackSidePadding + premiumValue.normalized() * width
-    canvas.drawLine(0f, top, right, top, premiumTrackPaint)
+    canvas.drawLine(trackSidePadding.toFloat(), top, right, top, premiumTrackPaint)
     canvas.drawLine(right, top - PixelUtil.toPixelFromDIP(4f), right, top + PixelUtil.toPixelFromDIP(4f), premiumTrackPaint)
   }
 

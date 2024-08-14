@@ -67,6 +67,11 @@ class SliderViewManager : SimpleViewManager<SliderHostView>() {
       view.slider.isTickVisible = false
     }
 
+    if (params.hasKey("premiumColor")) {
+      val tickColor = ColorPropConverter.getColor(params.getDouble("premiumColor"), view.context)
+      view.slider.setPremiumColor(ColorStateList.valueOf(tickColor))
+    }
+
     val trackColorActive = ColorPropConverter.getColor(params.getDouble("trackColorActive"), view.context)
     view.slider.setTrackColorActive(ColorStateList.valueOf(trackColorActive))
 

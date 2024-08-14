@@ -14,6 +14,7 @@ export type CommomSliderProps = {
   thumbRadius: number;
   tickColor?: string;
   trackColorActive: string;
+  premiumColor?: string;
   trackColorInactive: string;
   to: number;
 };
