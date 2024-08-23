@@ -60,8 +60,10 @@ internal fun List<Float>.clapped(
   val lowerBound = getOrNull(idx - 1) ?: minimumValue
 
   return if (idx == 0) {
+    if (lowerBound > upperBound - minimumRange) return lowerBound
     value.coerceIn(lowerBound, upperBound - minimumRange)
   } else {
+    if (lowerBound + minimumRange > upperBound) return lowerBound + minimumRange
     value.coerceIn(lowerBound + minimumRange, upperBound)
   }
 }
