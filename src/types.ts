@@ -20,7 +20,7 @@ export type CommomSliderProps = {
 };
 
 export type RangeSliderProps = {
-  params: { from: number } & CommomSliderProps;
+  params: { from: number; minimumRange?: number } & CommomSliderProps;
   style: StyleProp<ViewStyle>;
   onValueChange?: (event: NativeSyntheticEvent<OnRangeValueChange>) => void;
 };

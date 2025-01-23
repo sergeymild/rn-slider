@@ -52,6 +52,7 @@ export const RangeSlider: React.FC<Props> = props => {
       handleBorderWidth={commonProps.thumbStrokeWidth}
       handleColor={processColor(commonProps.thumbFillColor)}
       handleDiameter={commonProps.thumbRadius * 2}
+      minimumRange={commonProps.minimumRange as any}
       // minLabelColour={minLabelColor}
       // minLabelFont={minLabelFont}
       // minLabelFontSize={minLabelFontSize}
