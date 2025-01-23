@@ -14,7 +14,6 @@ export type CommomSliderProps = {
   thumbRadius: number;
   tickColor?: string;
   trackColorActive: string;
-  premiumColor?: string;
   trackColorInactive: string;
   to: number;
 };
@@ -26,7 +25,7 @@ export type RangeSliderProps = {
 };
 
 export type SliderProps = {
-  params: CommomSliderProps;
+  params: { premiumColor?: string; premiumValue?: number } & CommomSliderProps;
   style: StyleProp<ViewStyle>;
   onValueChange?: (event: NativeSyntheticEvent<OnValueChange>) => void;
   onPremiumValue?: (event: NativeSyntheticEvent<any>) => void;

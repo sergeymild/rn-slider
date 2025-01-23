@@ -7,6 +7,8 @@ const float TEXT_HEIGHT = 14;
 
 @property (nonatomic, strong) CALayer *sliderLine;
 @property (nonatomic, strong) CALayer *sliderLineBetweenHandles;
+@property (nonatomic, strong) CALayer *premiumLine;
+@property (nonatomic, strong) CALayer *premiumVerticalLine;
 
 @property (nonatomic, strong) CALayer *leftHandle;
 @property (nonatomic, assign) BOOL leftHandleSelected;
@@ -21,22 +23,8 @@ const float TEXT_HEIGHT = 14;
 
 @property (nonatomic, strong) NSNumberFormatter *decimalNumberFormatter; // Used to format values if formatType is YLRangeSliderFormatTypeDecimal
 
-// strong reference needed for UIAccessibilityContainer
-// see http://stackoverflow.com/questions/13462046/custom-uiview-not-showing-accessibility-on-voice-over
-@property (nonatomic, strong) NSMutableArray *accessibleElements;
 @end
 
-/**
- An accessibility element that increments and decrements the left slider
- */
-@interface TTRangeSliderLeftElement : UIAccessibilityElement
-@end
-
-/**
- An accessibility element that increments and decrements the right slider
- */
-@interface TTRangeSliderRightElement : UIAccessibilityElement
-@end
 
 static const CGFloat kLabelsFontSize = 12.0f;
 
@@ -59,7 +47,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
     _hideLabels = NO;
 
     _handleDiameter = 16.0;
-    _selectedHandleDiameterMultiplier = 1.7;
+    _selectedHandleDiameterMultiplier = 1;
 
     _lineHeight = 1.0;
 
@@ -74,6 +62,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
     _handleType =   HandleTypeRound;
     _handleSize = CGSizeMake(_handleDiameter, _handleDiameter);
+    _premiumValue = 0;
 
     //draw the slider line
     self.sliderLine = [CALayer layer];
@@ -86,6 +75,13 @@ static const CGFloat kLabelsFontSize = 12.0f;
     self.sliderLineBetweenHandles = [CALayer layer];
     self.sliderLineBetweenHandles.backgroundColor = self.tintColor.CGColor;
     [self.layer addSublayer:self.sliderLineBetweenHandles];
+
+    self.premiumLine = [CALayer layer];
+    self.premiumLine.backgroundColor = self.tintColor.CGColor;
+    [self.layer addSublayer:self.premiumLine];
+    self.premiumVerticalLine = [CALayer layer];
+    self.premiumVerticalLine.backgroundColor = self.tintColor.CGColor;
+    [self.layer addSublayer:self.premiumVerticalLine];
 
     //draw the minimum slider handle
     self.leftHandle = [CALayer layer];
@@ -134,23 +130,6 @@ static const CGFloat kLabelsFontSize = 12.0f;
     self.maxLabelFont = [UIFont systemFontOfSize:kLabelsFontSize];
     [self.layer addSublayer:self.maxLabel];
 
-    // TODO Create a bundle that allows localization of default accessibility labels and hints
-    if (!self.minLabelAccessibilityLabel || self.minLabelAccessibilityLabel.length == 0) {
-      self.minLabelAccessibilityLabel = @"Left Handle";
-    }
-
-    if (!self.minLabelAccessibilityHint || self.minLabelAccessibilityHint.length == 0) {
-      self.minLabelAccessibilityHint = @"Minimum value in slider";
-    }
-
-    if (!self.maxLabelAccessibilityLabel || self.maxLabelAccessibilityLabel.length == 0) {
-      self.maxLabelAccessibilityLabel = @"Right Handle";
-    }
-
-    if (!self.maxLabelAccessibilityHint || self.maxLabelAccessibilityHint.length == 0) {
-      self.maxLabelAccessibilityHint = @"Maximum value in slider";
-    }
-
     [self refresh];
 }
 
@@ -198,12 +177,6 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
 - (CGSize)intrinsicContentSize{
     return CGSizeMake(UIViewNoIntrinsicMetric, 65);
-}
-
--(void)prepareForInterfaceBuilder{
-    if (self.tintColorBetweenHandles == nil){
-        self.sliderLineBetweenHandles.backgroundColor = self.tintColor.CGColor;
-    }
 }
 
 
@@ -274,12 +247,6 @@ static const CGFloat kLabelsFontSize = 12.0f;
     self.maxLabelTextSize = [self.maxLabel.string sizeWithAttributes:@{NSFontAttributeName:self.maxLabelFont}];
 }
 
-- (void)updateAccessibilityElements {
-  [_accessibleElements removeAllObjects];
-  [_accessibleElements addObject:[self leftHandleAccessibilityElement]];
-  [_accessibleElements addObject:[self rightHandleAccessbilityElement]];
-}
-
 #pragma mark - Set Positions
 - (void)updateHandlePositions {
     CGPoint leftHandleCenter = CGPointMake([self getXPositionAlongLineForValue:self.selectedMinimum], CGRectGetMidY(self.sliderLine.frame));
@@ -290,6 +257,14 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
     //positioning for the dist slider line
     self.sliderLineBetweenHandles.frame = CGRectMake(self.leftHandle.position.x, self.sliderLine.frame.origin.y, self.rightHandle.position.x-self.leftHandle.position.x, self.lineHeight);
+
+    if (_premiumValue > 0) {
+        //positioning for the premium line
+        float x = [self getXPositionAlongLineForValue:_premiumValue];
+        float y = self.sliderLine.frame.origin.y;
+        self.premiumLine.frame = CGRectMake(0, y, x, self.lineHeight);
+        self.premiumVerticalLine.frame = CGRectMake(x - (self.lineHeight / 2), y - 4, self.lineHeight, self.lineHeight + 8);
+    }
 }
 
 - (void)updateLabelPositions {
@@ -421,7 +396,6 @@ static const CGFloat kLabelsFontSize = 12.0f;
     [self updateLabelPositions];
     [CATransaction commit];
     [self updateLabelValues];
-    [self updateAccessibilityElements];
 
     //update the delegate
     if ([self.delegate respondsToSelector:@selector(rangeSlider:didChangeSelectedMinimumValue:andMaximumValue:)] &&
@@ -762,97 +736,22 @@ static const CGFloat kLabelsFontSize = 12.0f;
     [self updateHandleTypeAndSize];
 }
 
+- (void)setPremiumColor:(UIColor *)premiumColor {
+    self.premiumLine.backgroundColor = premiumColor.CGColor;
+    self.premiumVerticalLine.backgroundColor = premiumColor.CGColor;
+    [self refresh];
+}
+
+- (void)setPremiumValue:(float)premiumValue {
+    _premiumValue = premiumValue;
+    [self refresh];
+}
+
 #pragma mark - UIAccessibility
 
 - (BOOL)isAccessibilityElement
 {
   return NO;
-}
-
-#pragma mark - UIAccessibilityContainer Protocol
-
-- (NSArray *)accessibleElements
-{
-  if(_accessibleElements != nil) {
-    return _accessibleElements;
-  }
-
-  _accessibleElements = [[NSMutableArray alloc] init];
-  [_accessibleElements addObject:[self leftHandleAccessibilityElement]];
-  [_accessibleElements addObject:[self rightHandleAccessbilityElement]];
-
-  return _accessibleElements;
-}
-
-- (NSInteger)accessibilityElementCount
-{
-  return [[self accessibleElements] count];
-}
-
-- (id)accessibilityElementAtIndex:(NSInteger)index
-{
-  return [[self accessibleElements] objectAtIndex:index];
-}
-
-- (NSInteger)indexOfAccessibilityElement:(id)element
-{
-  return [[self accessibleElements] indexOfObject:element];
-}
-
-- (UIAccessibilityElement *)leftHandleAccessibilityElement
-{
-  TTRangeSliderLeftElement *element = [[TTRangeSliderLeftElement alloc] initWithAccessibilityContainer:self];
-  element.isAccessibilityElement = YES;
-  element.accessibilityLabel = self.minLabelAccessibilityLabel;
-  element.accessibilityHint = self.minLabelAccessibilityHint;
-  element.accessibilityValue = self.minLabel.string;
-  element.accessibilityFrame = [self convertRect:self.leftHandle.frame toView:nil];
-  element.accessibilityTraits = UIAccessibilityTraitAdjustable;
-  return element;
-}
-
-- (UIAccessibilityElement *)rightHandleAccessbilityElement
-{
-  TTRangeSliderRightElement *element = [[TTRangeSliderRightElement alloc] initWithAccessibilityContainer:self];
-  element.isAccessibilityElement = YES;
-  element.accessibilityLabel = self.maxLabelAccessibilityLabel;
-  element.accessibilityHint = self.maxLabelAccessibilityHint;
-  element.accessibilityValue = self.maxLabel.string;
-  element.accessibilityFrame = [self convertRect:self.rightHandle.frame toView:nil];
-  element.accessibilityTraits = UIAccessibilityTraitAdjustable;
-  return element;
-}
-
-@end
-
-@implementation TTRangeSliderLeftElement
-
-- (void)accessibilityIncrement {
-  TTRangeSlider* slider = (TTRangeSlider*)self.accessibilityContainer;
-  slider.selectedMinimum += slider.step;
-  self.accessibilityValue = slider.minLabel.string;
-}
-
-- (void)accessibilityDecrement {
-  TTRangeSlider* slider = (TTRangeSlider*)self.accessibilityContainer;
-  slider.selectedMinimum -= slider.step;
-  self.accessibilityValue = slider.minLabel.string;
-}
-
-@end
-
-@implementation TTRangeSliderRightElement
-
-- (void)accessibilityIncrement {
-  TTRangeSlider* slider = (TTRangeSlider*)self.accessibilityContainer;
-  slider.selectedMaximum += slider.step;
-  self.accessibilityValue = slider.maxLabel.string;
-}
-
-- (void)accessibilityDecrement {
-  TTRangeSlider* slider = (TTRangeSlider*)self.accessibilityContainer;
-  slider.selectedMaximum -= slider.step;
-  self.accessibilityValue = slider.maxLabel.string;
 }
 
 @end

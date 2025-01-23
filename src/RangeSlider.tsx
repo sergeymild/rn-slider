@@ -45,6 +45,8 @@ export const RangeSlider: React.FC<Props> = props => {
       maxValue={commonProps.maximumValue}
       selectedMaximum={maximum}
       selectedMinimum={minimum}
+      // @ts-ignore
+      minDistance={commonProps.minimumRange}
       //step={Number(step)}
       tintColor={processColor(commonProps.trackColorInactive)}
       tintColorBetweenHandles={processColor(commonProps.trackColorActive)}
@@ -52,7 +54,6 @@ export const RangeSlider: React.FC<Props> = props => {
       handleBorderWidth={commonProps.thumbStrokeWidth}
       handleColor={processColor(commonProps.thumbFillColor)}
       handleDiameter={commonProps.thumbRadius * 2}
-      minimumRange={commonProps.minimumRange as any}
       // minLabelColour={minLabelColor}
       // minLabelFont={minLabelFont}
       // minLabelFontSize={minLabelFontSize}
@@ -60,13 +61,15 @@ export const RangeSlider: React.FC<Props> = props => {
       // maxLabelFontSize={maxLabelFontSize}
       // maxLabelColour={maxLabelColor}
       lineHeight={commonProps.trackHeight}
+      //@ts-ignore
+      premiumColor={processColor(commonProps.premiumColor ?? '#AFB1B2')}
+      // @ts-ignore
+      premiumValue={commonProps.premiumValue}
       // lineBorderWidth={lineBorderWidth}
-      //lineBorderColor={processColor(commonProps.trackColorActive)}
       prefix={''}
       suffix={''}
       hideLabels
       labelPadding={0}
-      minDistance={undefined}
       maxDistance={undefined}
       onChange={handleChange}
       style={[defaultStyle, props.props.style]}

@@ -51,5 +51,7 @@ RCT_EXPORT_VIEW_PROPERTY(labelPadding, float);
 RCT_EXPORT_VIEW_PROPERTY(step, float);
 RCT_EXPORT_VIEW_PROPERTY(minDistance, float);
 RCT_EXPORT_VIEW_PROPERTY(maxDistance, float);
+RCT_EXPORT_VIEW_PROPERTY(premiumColor, NSNumber);
+RCT_EXPORT_VIEW_PROPERTY(premiumValue, float);
 
 @end

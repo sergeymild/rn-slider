@@ -78,26 +78,6 @@ IB_DESIGNABLE
 @property (nonatomic, strong) IBInspectable UIFont *maxLabelFont;
 
 /**
- * The label displayed in accessibility mode for minimum value handler
- */
-@property (nonatomic, strong) IBInspectable NSString *minLabelAccessibilityLabel;
-
-/**
- * The label displayed in accessibility mode for maximum value handler
- */
-@property (nonatomic, strong) IBInspectable NSString *maxLabelAccessibilityLabel;
-
-/**
- * The brief description displayed in accessibility mode for minimum value handler
- */
-@property (nonatomic, strong) IBInspectable NSString *minLabelAccessibilityHint;
-
-/**
- * The brief description displayed in accessibility mode for maximum value handler
- */
-@property (nonatomic, strong) IBInspectable NSString *maxLabelAccessibilityHint;
-
-/**
  * If true, the control will mimic a normal slider and have only one handle rather than a range.
  * In this case, the selectedMinValue will be not functional anymore. Use selectedMaxValue instead to determine the value the user has selected.
  */
@@ -215,5 +195,9 @@ typedef NS_ENUM(NSInteger, HandleType) {
  *Set the  Handle Size (default (16.0, 16.0))
  */
 @property (nonatomic, assign) CGSize handleSize;
+
+
+@property (nonatomic, assign) float premiumValue;
+@property (nonatomic, assign) UIColor* premiumColor;
 
 @end

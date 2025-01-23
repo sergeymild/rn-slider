@@ -36,6 +36,9 @@
 @property (nonatomic, assign) float minLabelFontSize;
 @property (nonatomic, assign) float maxLabelFontSize;
 
+@property (nonatomic, assign) float premiumValue;
+@property (nonatomic, assign) NSNumber* premiumColor;
+
 // Initializing with the event dispatcher allows us to communicate with JS
 - (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher NS_DESIGNATED_INITIALIZER;
 

@@ -199,6 +199,15 @@
     [_rangeSlider setMaxDistance:maxDistance];
 }
 
+- (void)setPremiumColor:(NSNumber *)premiumColor {
+    UIColor *color = [RCTConvert UIColor:premiumColor];
+    [_rangeSlider setPremiumColor:color];
+}
+
+- (void)setPremiumValue:(float)premiumValue {
+    [_rangeSlider setPremiumValue:premiumValue];
+}
+
 - (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher
 {
     if ((self = [super init])) {

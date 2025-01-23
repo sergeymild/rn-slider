@@ -1,6 +1,6 @@
 {
   "name": "react-native-range-slider",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "React native cross platform range slider",
   "main": "src/index",
   "module": "src/index",
@@ -14,10 +14,8 @@
     "jesster2k10-react-native-range-slider.podspec"
   ],
   "scripts": {
-    "test": "jest",
     "typescript": "tsc --noEmit",
     "lint": "eslint --ext .js,.ts,.tsx .",
-    "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example/ios && node -e \"process.exit(require('os').platform() === 'darwin')\" || pod install",
     "bootstrap": "yarn example && yarn && yarn pods"
@@ -27,19 +25,17 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/jesster2k10/react-native-range-slider/jesster2k10-react-native-range-slider",
-  "author": "Jesse Onolememen <jesseono91@gmail.com> (https://github.com/jesster2k10/react-native-range-slider)",
+  "repository": "https://github.com/sergeymild/rn-slider",
+  "author": "sergeymild <sgolishnikov@gmail.com> (https://github.com/sergeymild)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jesster2k10/react-native-range-slider/jesster2k10-react-native-range-slider/issues"
+    "url": "https://github.com/sergeymild/rn-slider/issues"
   },
-  "homepage": "https://github.com/jesster2k10/react-native-range-slider/jesster2k10-react-native-range-slider#readme",
+  "homepage": "https://github.com/sergeymild/rn-slider#readme",
   "devDependencies": {
-    "@commitlint/config-conventional": "^8.3.4",
     "@react-native-community/eslint-config": "^0.0.7",
     "@types/react": "^16.9.19",
     "@types/react-native": "0.61.10",
-    "commitlint": "^8.3.4",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
