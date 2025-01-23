@@ -14,9 +14,6 @@ import android.view.animation.OvershootInterpolator;
 
 import com.jesster2k10reactnativerangeslider.R;
 
-/**
- * Created by owais.ali on 7/12/2016.
- */
 public class BubbleThumbRangeSeekbar extends CrystalRangeSeekbar {
 
     //////////////////////////////////////////

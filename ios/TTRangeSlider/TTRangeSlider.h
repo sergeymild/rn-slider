@@ -1,9 +1,3 @@
-//
-//  TTRangeSliderView.h
-//
-//  Created by Tom Thorpe
-//
-
 #import <UIKit/UIKit.h>
 #import "TTRangeSliderDelegate.h"
 

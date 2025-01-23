@@ -22,10 +22,6 @@ import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarFinalValueListener;
 import com.jesster2k10reactnativerangeslider.R;
 
-
-/**
- * Created by owais.ali on 6/20/2016.
- */
 public class CrystalSeekbar extends View {
 
     //////////////////////////////////////////

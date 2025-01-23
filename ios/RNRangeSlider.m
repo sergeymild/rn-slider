@@ -1,10 +1,3 @@
-//
-//  RangeSlider.m
-//  DoubleConversion
-//
-//  Created by Jesse Onolememen on 23/03/2020.
-//
-
 #import <Foundation/Foundation.h>
 #import "RNRangeSlider.h"
 

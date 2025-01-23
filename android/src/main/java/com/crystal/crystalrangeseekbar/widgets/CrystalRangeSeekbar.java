@@ -23,9 +23,6 @@ import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarFinalValueListen
 import com.jesster2k10reactnativerangeslider.R;
 
 
-/**
- * Created by owais.ali on 6/20/2016.
- */
 public class CrystalRangeSeekbar extends View {
 
     //////////////////////////////////////////

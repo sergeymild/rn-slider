@@ -1,10 +1,3 @@
-//
-//  RangeSliderManager.m
-//  jesster2k10-react-native-range-slider
-//
-//  Created by Jesse Onolememen on 23/03/2020.
-//
-
 #import <Foundation/Foundation.h>
 #import "RNRangeSlider.h"
 #import "RNRangeSliderManager.h"

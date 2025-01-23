@@ -1,10 +1,3 @@
-//
-//  RangeSlider.h
-//  DoubleConversion
-//
-//  Created by Jesse Onolememen on 23/03/2020.
-//
-
 #import <UIKit/UIKit.h>
 
 @class RCTEventDispatcher;

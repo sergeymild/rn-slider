@@ -1,8 +1,3 @@
-//
-//  TTRangeSlider.m
-//
-//  Created by Tom Thorpe
-
 #import "TTRangeSlider.h"
 
 const int HANDLE_TOUCH_AREA_EXPANSION = -30; //expand the touch area of the handle by this much (negative values increase size) so that you don't have to touch right on the handle to activate it.
@@ -62,31 +57,31 @@ static const CGFloat kLabelsFontSize = 12.0f;
     _step = 0.1f;
 
     _hideLabels = NO;
-    
+
     _handleDiameter = 16.0;
     _selectedHandleDiameterMultiplier = 1.7;
-    
+
     _lineHeight = 1.0;
-    
+
     _handleBorderWidth = 0.0;
     _handleBorderColor = self.tintColor;
-    
-    
+
+
     _labelPadding = 8.0;
     _barSidePadding = 16.0;
 
     _labelPosition = LabelPositionAbove;
-    
+
     _handleType =   HandleTypeRound;
     _handleSize = CGSizeMake(_handleDiameter, _handleDiameter);
-    
+
     //draw the slider line
     self.sliderLine = [CALayer layer];
     self.sliderLine.backgroundColor = self.tintColor.CGColor;
     self.sliderLine.borderColor = self.lineBorderColor.CGColor;
     self.sliderLine.borderWidth = self.lineBorderWidth;
     [self.layer addSublayer:self.sliderLine];
-    
+
     //draw the track distline
     self.sliderLineBetweenHandles = [CALayer layer];
     self.sliderLineBetweenHandles.backgroundColor = self.tintColor.CGColor;
@@ -143,19 +138,19 @@ static const CGFloat kLabelsFontSize = 12.0f;
     if (!self.minLabelAccessibilityLabel || self.minLabelAccessibilityLabel.length == 0) {
       self.minLabelAccessibilityLabel = @"Left Handle";
     }
-  
+
     if (!self.minLabelAccessibilityHint || self.minLabelAccessibilityHint.length == 0) {
       self.minLabelAccessibilityHint = @"Minimum value in slider";
     }
-  
+
     if (!self.maxLabelAccessibilityLabel || self.maxLabelAccessibilityLabel.length == 0) {
       self.maxLabelAccessibilityLabel = @"Right Handle";
     }
-  
+
     if (!self.maxLabelAccessibilityHint || self.maxLabelAccessibilityHint.length == 0) {
       self.maxLabelAccessibilityHint = @"Maximum value in slider";
     }
-  
+
     [self refresh];
 }
 
@@ -169,10 +164,10 @@ static const CGFloat kLabelsFontSize = 12.0f;
     CGPoint lineLeftSide = CGPointMake(barSidePadding, yMiddle);
     CGPoint lineRightSide = CGPointMake(currentFrame.size.width-barSidePadding, yMiddle);
     self.sliderLine.frame = CGRectMake(lineLeftSide.x, lineLeftSide.y, lineRightSide.x-lineLeftSide.x, self.lineHeight);
-    
+
     self.sliderLine.cornerRadius = self.lineHeight / 2.0;
     self.sliderLineBetweenHandles.cornerRadius = self.lineHeight / 2.0;
-    
+
     [self updateLabelValues];
     [self updateHandlePositions];
     [self updateLabelPositions];
@@ -274,7 +269,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
     self.minLabel.string = [formatter stringFromNumber:@(self.selectedMinimum)];
     self.maxLabel.string = [formatter stringFromNumber:@(self.selectedMaximum)];
-    
+
     self.minLabelTextSize = [self.minLabel.string sizeWithAttributes:@{NSFontAttributeName:self.minLabelFont}];
     self.maxLabelTextSize = [self.maxLabel.string sizeWithAttributes:@{NSFontAttributeName:self.maxLabelFont}];
 }
@@ -292,7 +287,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
     CGPoint rightHandleCenter = CGPointMake([self getXPositionAlongLineForValue:self.selectedMaximum], CGRectGetMidY(self.sliderLine.frame));
     self.rightHandle.position= rightHandleCenter;
-    
+
     //positioning for the dist slider line
     self.sliderLineBetweenHandles.frame = CGRectMake(self.leftHandle.position.x, self.sliderLine.frame.origin.y, self.rightHandle.position.x-self.leftHandle.position.x, self.lineHeight);
 }
@@ -310,8 +305,8 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
     CGSize minLabelTextSize = self.minLabelTextSize;
     CGSize maxLabelTextSize = self.maxLabelTextSize;
-    
-    
+
+
     self.minLabel.frame = CGRectMake(0, 0, minLabelTextSize.width, minLabelTextSize.height);
     self.maxLabel.frame = CGRectMake(0, 0, maxLabelTextSize.width, maxLabelTextSize.height);
 
@@ -647,14 +642,14 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
 -(void)setHandleImage:(UIImage *)handleImage{
     _handleImage = handleImage;
-    
+
     CGRect startFrame = CGRectMake(0.0, 0.0, 31, 32);
     self.leftHandle.contents = (id)handleImage.CGImage;
     self.leftHandle.frame = startFrame;
-    
+
     self.rightHandle.contents = (id)handleImage.CGImage;
     self.rightHandle.frame = startFrame;
-    
+
     //Force layer background to transparant
     self.leftHandle.backgroundColor = [[UIColor clearColor] CGColor];
     self.rightHandle.backgroundColor = [[UIColor clearColor] CGColor];
@@ -681,10 +676,10 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
 -(void)setHandleDiameter:(CGFloat)handleDiameter{
     _handleDiameter = handleDiameter;
-    
+
     self.leftHandle.cornerRadius = self.handleDiameter / 2;
     self.rightHandle.cornerRadius = self.handleDiameter / 2;
-    
+
     self.leftHandle.frame = CGRectMake(0, 0, self.handleDiameter, self.handleDiameter);
     self.rightHandle.frame = CGRectMake(0, 0, self.handleDiameter, self.handleDiameter);
 
@@ -727,7 +722,7 @@ static const CGFloat kLabelsFontSize = 12.0f;
     self.leftHandle.shadowOffset = CGSizeMake(0.0, self.shadowRadius);
     self.leftHandle.shadowRadius = self.shadowRadius;
     self.leftHandle.shadowColor = self.tintColor.CGColor;
-    
+
     self.rightHandle.shadowOffset = CGSizeMake(0.0, _shadowRadius);
     self.rightHandle.shadowRadius = _shadowRadius;
     self.rightHandle.shadowColor = self.tintColor.CGColor;
@@ -735,11 +730,11 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
 - (void)setShadowOpacity:(float)shadowOpacity {
     _shadowOpacity = shadowOpacity;
-    
+
     self.leftHandle.shadowOffset = CGSizeMake(0.0, self.shadowRadius);
     self.leftHandle.shadowOpacity = self.shadowOpacity;
     self.leftHandle.shadowColor = self.tintColor.CGColor;
-    
+
     self.rightHandle.shadowOffset = CGSizeMake(0.0, _shadowRadius);
     self.rightHandle.shadowOpacity = _shadowOpacity;
     self.rightHandle.shadowColor = self.tintColor.CGColor;
@@ -747,13 +742,13 @@ static const CGFloat kLabelsFontSize = 12.0f;
 
 - (void)setEnableStep:(BOOL)enableStep {
     _enableStep = enableStep;
-    
+
     [self refresh];
 }
 
 - (void)setStep:(float)step {
     _step = step;
-    
+
     [self refresh];
 }
 
@@ -781,11 +776,11 @@ static const CGFloat kLabelsFontSize = 12.0f;
   if(_accessibleElements != nil) {
     return _accessibleElements;
   }
-  
+
   _accessibleElements = [[NSMutableArray alloc] init];
   [_accessibleElements addObject:[self leftHandleAccessibilityElement]];
   [_accessibleElements addObject:[self rightHandleAccessbilityElement]];
-  
+
   return _accessibleElements;
 }
 

@@ -7,9 +7,13 @@ import {
   processColor,
 } from 'react-native';
 
-import {OnRangeValueChange, OnValueChange, RangeSliderProps, SliderProps} from './types';
-export type {OnRangeValueChange, OnValueChange, RangeSliderProps, SliderProps}
-
+import {
+  OnRangeValueChange,
+  OnValueChange,
+  RangeSliderProps,
+  SliderProps,
+} from './types';
+export { OnRangeValueChange, OnValueChange, RangeSliderProps, SliderProps };
 
 const LINKING_ERROR =
   `The package 'react-native-slider' doesn't seem to be linked. Make sure: \n\n` +
@@ -17,26 +21,24 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-
-
 const _RangeSliderView =
   UIManager.getViewManagerConfig('RangeSliderView') != null
-    ? requireNativeComponent<RangeSliderProps>('RangeSliderView')
+    ? requireNativeComponent('RangeSliderView')
     : () => {
-      throw new Error(LINKING_ERROR);
-    };
+        throw new Error(LINKING_ERROR);
+      };
 
 const _SliderView =
   UIManager.getViewManagerConfig('SliderView') != null
-    ? requireNativeComponent<SliderProps>('SliderView')
+    ? requireNativeComponent('SliderView')
     : () => {
-      throw new Error(LINKING_ERROR);
-    };
+        throw new Error(LINKING_ERROR);
+      };
 
-export const RangeSliderView: React.FC<RangeSliderProps> = memo((props) => {
+export const RangeSliderView = memo<RangeSliderProps>(props => {
   if (Platform.OS === 'ios') {
     // TODO premiumColor
-    return <RangeSlider props={props} type={'range'} />
+    return <RangeSlider props={props} type={'range'} />;
   }
   return (
     <_RangeSliderView
@@ -56,9 +58,9 @@ export const RangeSliderView: React.FC<RangeSliderProps> = memo((props) => {
   );
 });
 
-export const SliderView: React.FC<SliderProps> = memo((props) => {
+export const SliderView = memo<SliderProps>(props => {
   if (Platform.OS === 'ios') {
-    return <RangeSlider props={props} type={'slider'} />
+    return <RangeSlider props={props} type={'slider'} />;
   }
 
   return (
@@ -72,7 +74,9 @@ export const SliderView: React.FC<SliderProps> = memo((props) => {
         thumbFillColor: processColor(props.params.thumbFillColor) as any,
         tickColor: processColor(props.params.tickColor) as any,
         trackColorActive: processColor(props.params.trackColorActive) as any,
-        premiumColor: processColor(props.params.premiumColor ?? "#AFB1B2") as any,
+        premiumColor: processColor(
+          props.params.premiumColor ?? '#AFB1B2'
+        ) as any,
         trackColorInactive: processColor(
           props.params.trackColorInactive
         ) as any,
@@ -80,4 +84,3 @@ export const SliderView: React.FC<SliderProps> = memo((props) => {
     />
   );
 });
-

@@ -39,18 +39,19 @@ export const RangeSlider: React.FC<Props> = props => {
 
   return (
     <Slider
+      // @ts-ignore
       disableRange={props.type === 'slider'}
       minValue={commonProps.minimumValue}
       maxValue={commonProps.maximumValue}
       selectedMaximum={maximum}
       selectedMinimum={minimum}
       //step={Number(step)}
-      tintColor={processColor(commonProps.trackColorActive)}
-      tintColorBetweenHandles={processColor(commonProps.trackColorInactive)}
-      //handleBorderColor={handleBorderColor}
-      // handleBorderWidth={handleBorderWidth}
+      tintColor={processColor(commonProps.trackColorInactive)}
+      tintColorBetweenHandles={processColor(commonProps.trackColorActive)}
+      handleBorderColor={processColor(commonProps.thumbStrokeColor)}
+      handleBorderWidth={commonProps.thumbStrokeWidth}
       handleColor={processColor(commonProps.thumbFillColor)}
-      // handleDiameter={handleDiameter}
+      handleDiameter={commonProps.thumbRadius * 2}
       // minLabelColour={minLabelColor}
       // minLabelFont={minLabelFont}
       // minLabelFontSize={minLabelFontSize}

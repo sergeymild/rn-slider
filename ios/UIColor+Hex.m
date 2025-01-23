@@ -1,20 +1,13 @@
-//
-//  UIColor+Hex.m
-//  jesster2k10-react-native-range-slider
-//
-//  Created by Jesse Onolememen on 23/03/2020.
-//
-
 #import "UIColor+Hex.h"
 
 @implementation UIColor (fromHex)
 + (UIColor *)colorwithHexString:(NSString *)hexStr alpha:(CGFloat)alpha;
 {
     unsigned int hexint = 0;
-    
+
     // Create scanner
     NSScanner *scanner = [NSScanner scannerWithString:hexStr];
-    
+
     // Tell scanner to skip the # character
     [scanner setCharactersToBeSkipped:[NSCharacterSet
                                        characterSetWithCharactersInString:@"#"]];

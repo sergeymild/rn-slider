@@ -1,4 +1,4 @@
-import {NativeSyntheticEvent, StyleProp, ViewStyle} from 'react-native';
+import { NativeSyntheticEvent, StyleProp, ViewStyle } from 'react-native';
 
 export type OnRangeValueChange = { from: number; to: number };
 export type OnValueChange = { to: number };
