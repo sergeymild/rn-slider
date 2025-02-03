@@ -208,6 +208,13 @@
     [_rangeSlider setPremiumValue:premiumValue];
 }
 
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+    _rangeSlider.minValue = _minValue ? _minValue : 0;
+    _rangeSlider.maxValue = _maxValue ? _maxValue : 100;
+    _rangeSlider.selectedMinimum = _selectedMinimum;
+    _rangeSlider.selectedMaximum = _selectedMaximum;
+}
+
 - (instancetype)initWithEventDispatcher:(RCTEventDispatcher *)eventDispatcher
 {
     if ((self = [super init])) {
