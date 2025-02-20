@@ -193,8 +193,9 @@ class AppFlexibleStepRangeSlider @JvmOverloads constructor(
     Idle
   }
 
-  fun interface OnValueChangeListener {
+  interface OnValueChangeListener {
     fun onValueChange(activeThumbIdx: Int, from: Float, to: Float, state: ValueChangeState)
+    fun onTouchUp()
   }
 
   init {
@@ -411,6 +412,10 @@ class AppFlexibleStepRangeSlider @JvmOverloads constructor(
     listener.onValueChange(activeThumbIdx, valueFrom, valueTo, state)
   }
 
+  private fun onTouchUp() = listeners.forEach { listener ->
+    listener.onTouchUp()
+  }
+
   override fun onDraw(canvas: Canvas) {
     val top: Float = (paddingTop + maxThumbRadius).toFloat()
     drawInactiveTrack(canvas, trackWidth, top)
@@ -546,6 +551,7 @@ class AppFlexibleStepRangeSlider @JvmOverloads constructor(
           activeThumbIdx = NO_INDEX
         }
         notifyValueChanged(ValueChangeState.Idle)
+        onTouchUp()
         invalidate()
       }
     }

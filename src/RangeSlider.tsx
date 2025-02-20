@@ -13,6 +13,9 @@ export const RangeSlider: React.FC<Props> = props => {
     height: 70,
   };
   const handleChange = ({ nativeEvent }: any) => {
+    if (nativeEvent.type === 'end') {
+      return props.props.didTouchUp?.();
+    }
     if (props.type === 'slider') {
       //@ts-ignore
       props.props.onValueChange({ nativeEvent: { to: nativeEvent.max } });

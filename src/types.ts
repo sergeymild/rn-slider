@@ -22,10 +22,12 @@ export type RangeSliderProps = {
   params: { from: number; minimumRange?: number } & CommomSliderProps;
   style: StyleProp<ViewStyle>;
   onValueChange?: (event: NativeSyntheticEvent<OnRangeValueChange>) => void;
+  didTouchUp?: () => void;
 };
 
 export type SliderProps = {
   params: { premiumColor?: string; premiumValue?: number } & CommomSliderProps;
+  didTouchUp?: () => void;
   style: StyleProp<ViewStyle>;
   onValueChange?: (event: NativeSyntheticEvent<OnValueChange>) => void;
   onPremiumValue?: (event: NativeSyntheticEvent<any>) => void;

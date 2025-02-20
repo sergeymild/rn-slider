@@ -250,6 +250,21 @@
         _childView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, 50, 50))];
         // _childView.backgroundColor = [UIColor whiteColor];
 
+        __weak typeof(self) weakSelf = self;
+        __weak typeof(_eventDispatcher) weakDisp = _eventDispatcher;
+        [_rangeSlider setDidTouchUp:^(NSDictionary *body) {
+            if (!weakSelf) return;
+            NSDictionary *eventBody = @{
+                @"type": @"end",
+                @"target": weakSelf.reactTag
+            };
+
+            if (weakDisp) {
+                RCTComponentEvent *event = [[RCTComponentEvent alloc] initWithName:@"onChange" viewTag:weakSelf.reactTag body: eventBody];
+                [weakDisp sendEvent:event];
+            }
+        }];
+
     }
 
     return self;

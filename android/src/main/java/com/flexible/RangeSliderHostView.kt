@@ -44,4 +44,11 @@ class RangeSliderHostView(context: Context) : FrameLayout(context),
   ) {
     onValueChange(from, to)
   }
+
+  override fun onTouchUp() {
+    val event = Arguments.createMap()
+    event.putString("type", "end")
+    val reactContext = context as ReactContext
+    reactContext.getJSModule(RCTEventEmitter::class.java).receiveEvent(id, "onValueChange", event)
+  }
 }

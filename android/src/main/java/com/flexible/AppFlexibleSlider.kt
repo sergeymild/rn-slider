@@ -144,9 +144,9 @@ class AppFlexibleSlider @JvmOverloads constructor(
     Start
   }
 
-  fun interface OnValueChangeListener {
-
+  interface OnValueChangeListener {
     fun onValueChange(from: Float, to: Float, state: ValueChangeState)
+    fun onTouchUp()
   }
 
   init {
@@ -382,6 +382,10 @@ class AppFlexibleSlider @JvmOverloads constructor(
     listener.onValueChange(valueFrom, valueTo, state)
   }
 
+  private fun onTouchUp() = listeners.forEach { listener ->
+    listener.onTouchUp()
+  }
+
   override fun onDraw(canvas: Canvas) {
     val top: Float = (paddingTop + maxThumbRadius).toFloat()
     drawInactiveTrack(canvas, trackWidth, top)
@@ -525,6 +529,7 @@ class AppFlexibleSlider @JvmOverloads constructor(
           activeThumbIdx = NO_INDEX
         }
         notifyValueChanged(ValueChangeState.Idle)
+        onTouchUp()
         invalidate()
       }
     }

@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "TTRangeSliderDelegate.h"
+#import <React/RCTComponent.h>
 
 IB_DESIGNABLE
 @interface TTRangeSlider : UIControl <UIGestureRecognizerDelegate>
@@ -199,5 +200,6 @@ typedef NS_ENUM(NSInteger, HandleType) {
 
 @property (nonatomic, assign) float premiumValue;
 @property (nonatomic, assign) UIColor* premiumColor;
+@property (nonatomic, copy) RCTDirectEventBlock didTouchUp;
 
 @end

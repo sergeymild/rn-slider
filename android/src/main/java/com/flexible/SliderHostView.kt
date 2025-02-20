@@ -64,4 +64,11 @@ class SliderHostView(context: Context) : FrameLayout(context),
     previousValue = to
     onValueChange(to)
   }
+
+  override fun onTouchUp() {
+    val event = Arguments.createMap()
+    event.putString("type", "end")
+    val reactContext = context as ReactContext
+    reactContext.getJSModule(RCTEventEmitter::class.java).receiveEvent(id, "onValueChange", event)
+  }
 }

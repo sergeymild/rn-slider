@@ -465,6 +465,10 @@ static const CGFloat kLabelsFontSize = 12.0f;
     if ([self.delegate respondsToSelector:@selector(didEndTouchesInRangeSlider:)]) {
         [self.delegate didEndTouchesInRangeSlider:self];
     }
+    if (_didTouchUp != nil) {
+        _didTouchUp(nil);
+    }
+
 }
 
 #pragma mark - Animation

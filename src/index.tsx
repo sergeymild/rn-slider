@@ -43,7 +43,12 @@ export const RangeSliderView = memo<RangeSliderProps>(props => {
   return (
     <_RangeSliderView
       style={props.style}
-      onValueChange={props.onValueChange}
+      onValueChange={(event: any) => {
+        if (event.type === 'end') {
+          return props.didTouchUp?.();
+        }
+        props.onValueChange?.(event);
+      }}
       params={{
         ...props.params,
         thumbStrokeColor: processColor(props.params.thumbStrokeColor) as any,
@@ -66,8 +71,13 @@ export const SliderView = memo<SliderProps>(props => {
   return (
     <_SliderView
       style={props.style}
-      onValueChange={props.onValueChange}
       onPremiumValue={props.onPremiumValue}
+      onValueChange={(event: any) => {
+        if (event.type === 'end') {
+          return props.didTouchUp?.();
+        }
+        props.onValueChange?.(event);
+      }}
       params={{
         ...props.params,
         thumbStrokeColor: processColor(props.params.thumbStrokeColor) as any,
